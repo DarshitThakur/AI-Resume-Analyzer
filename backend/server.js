@@ -21,15 +21,15 @@ mongoose.connect(MONGODB_URI)
 const path = require('path');
 
 // Serve static files from the React frontend app
-app.use(express.static(path.join(__dirname, '../frontend/dist')));
+// app.use(express.static(path.join(__dirname, '../frontend/dist')));
 
 // Register API routes
 app.use('/api', apiRoutes);
 
 // Catch-all route to serve the React app for non-API requests
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
-});
+// app.get(/.*/, (req, res) => {
+//   res.sendFile(path.join(__dirname, '../frontend/dist/index.html'));
+// });
 
 // Start Server
 app.listen(PORT, () => {
