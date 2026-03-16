@@ -9,8 +9,16 @@ const api = axios.create({
 export const uploadResumeFile = async (file) => {
   const formData = new FormData();
   formData.append('resume', file);
-  const response = await api.post('/uploadResume', formData);
-  return response.data;
+  const API_URL = import.meta.env.VITE_API_URL;
+  const res = await fetch(`${API_URL}/api/uploadResume`, {
+    method: 'POST',
+    body: formData
+  });
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw { response: { data: errorData } };
+  }
+  return await res.json();
 };
 
 export const matchJobDescription = async (resumeText, jobDescription, userName = '', userEmail = '') => {
