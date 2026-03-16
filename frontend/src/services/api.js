@@ -1,6 +1,7 @@
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
+// Ensure the frontend always calls the backend under the /api prefix
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 const api = axios.create({
   baseURL: API_URL,
@@ -9,7 +10,6 @@ const api = axios.create({
 export const uploadResumeFile = async (file) => {
   const formData = new FormData();
   formData.append('resume', file);
-  const API_URL = import.meta.env.VITE_API_URL;
   const res = await fetch(`${API_URL}/api/uploadResume`, {
     method: 'POST',
     body: formData
@@ -22,7 +22,7 @@ export const uploadResumeFile = async (file) => {
 };
 
 export const matchJobDescription = async (resumeText, jobDescription, userName = '', userEmail = '') => {
-  const response = await api.post('/matchJob', {
+  const response = await api.post('/api/matchJob', {
     resumeText,
     jobDescription,
     userName,
